@@ -7,6 +7,9 @@ class Storage {
   static late SharedPreferences prefs;
 
   static Future<void> init() async {
+    // refer this issue: https://stackoverflow.com/questions/74093954/how-to-fix-no-implementation-found-for-method-getall-on-channel-plugins-flutter
+    // ignore: invalid_use_of_visible_for_testing_member
+    SharedPreferences.setMockInitialValues({});
     prefs = await SharedPreferences.getInstance();
   }
 
@@ -23,5 +26,5 @@ class Storage {
 
   static String getNotificationOnAppKillBody() =>
       prefs.getString(notificationOnAppKillBody) ??
-      'You killed the app. Please reopen so your alarm can ring.';
+      'You killed the app. Please reopen and re-set alarm.';
 }
